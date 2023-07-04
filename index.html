@@ -14,9 +14,200 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"
         integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
 <style>
+    .hover-line {
+        position: relative;
+        transition: all 300ms linear;
+    }
+
+    .hover-line::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: -10px;
+        width: 0;
+        height: 2.5px;
+        background-color: #F9C06A;
+        transition: 0.3s ease-in-out;
+        border-radius: 10px;
+        margin-bottom: 5px;
+    }
+
+    .hover-line:hover::before {
+        width: 100%;
+        left: 0;
+    }
+
+    .text-coffee {
+        animation: colorchange 20s infinite alternate;
+    }
+
+    @keyframes colorchange {
+        0% {
+
+            color: #090303;
+        }
+
+        10% {
+
+            color: #6C4C34;
+        }
+
+        20% {
+
+            color: #1abc9c;
+        }
+
+        30% {
+
+            color: #d35400;
+        }
+
+        40% {
+
+            color: #5D3D26;
+        }
+
+        50% {
+
+            color: #34495e;
+        }
+
+        60% {
+
+            color: #6C4C34;
+        }
+
+        70% {
+
+            color: #2980b9;
+        }
+
+        80% {
+
+            color: #f1c40f;
+        }
+
+        90% {
+
+            color: #2980b9;
+        }
+
+        100% {
+
+            color: pink;
+        }
+    }
+
+    .coffe-image {
+        animation: shake 0.5s;
+        animation-iteration-count: infinite;
+    }
+
+    @keyframes shake {
+        0% {
+            transform: translate(1px, 1px) rotate(0deg);
+        }
+
+        10% {
+            transform: translate(-1px, -2px) rotate(-1deg);
+        }
+
+        20% {
+            transform: translate(-3px, 0px) rotate(1deg);
+        }
+
+        30% {
+            transform: translate(3px, 2px) rotate(0deg);
+        }
+
+        40% {
+            transform: translate(1px, -1px) rotate(1deg);
+        }
+
+        50% {
+            transform: translate(-1px, 2px) rotate(-1deg);
+        }
+
+        60% {
+            transform: translate(-3px, 1px) rotate(0deg);
+        }
+
+        70% {
+            transform: translate(3px, 1px) rotate(-1deg);
+        }
+
+        80% {
+            transform: translate(-1px, -1px) rotate(1deg);
+        }
+
+        90% {
+            transform: translate(1px, 2px) rotate(0deg);
+        }
+
+        100% {
+            transform: translate(1px, -2px) rotate(-1deg);
+        }
+    }
+
+    .preloader-box {
+        min-height: 100vh;
+        width: 100%;
+        top: 0;
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        background-color: #452908;
+        position: fixed;
+        z-index: 1000;
+    }
+
+    #button {
+        display: inline-block;
+        background-color: #F9C06A;
+        width: 50px;
+        height: 45px;
+        text-align: center;
+        border-radius: 4px;
+        position: fixed;
+        bottom: 5px;
+        right: 5px;
+        transition: background-color .3s,
+            opacity .5s, visibility .5s;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 10;
+    }
+
+    #button::after {
+        content: "⇪";
+        font-size: 3rem;
+        line-height: 38px;
+        color: #fff;
+    }
+
+    #button.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    @media (min-width: 500px) {
+        .content {
+            width: 43%;
+        }
+
+        #button {
+            margin: 30px;
+        }
+    }
+
+    html body {
+        scroll-behavior: smooth;
+    }
+
     .btn-1 {
         padding: 10px 20px;
         background-color: #F9C06A;
@@ -107,371 +298,374 @@
             pointer-events: all;
             left: 0;
             gap: 10px;
-            z-index: 1;
+            z-index: 15;
         }
     }
 </style>
 
-<body>
+<body class="overflow-hidden">
 
-    <header class="bg-cover bg-no-repeat" style="background-image: url(/assests/images/png/bg-1-image.png)">
-        <div class="container mx-auto px-10">
-            <div class="relative">
-                <nav class="py-5">
-                    <div class="flex items-center justify-between">
-                        <a href="" class=" ff-Clicker_Script font-normal text-[54px] text-white">Bean Scene</a>
-                        <label for="menuIcon" class="z-10">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </label>
-                        <input type="checkbox" id="menuIcon" hidden class="d-none">
-                        <ul class="flex items-center sm-screen mx-auto text-white">
-                            <li class="ml-8"><a href="" class="ff-Playfair_Display font-medium text-sm">Home</a>
-                            </li>
-                            <li class="ml-8"><a href="" class="ff-Playfair_Display font-medium text-sm">Menu</a>
-                            </li>
-                            <li class="ml-8"><a href="" class="ff-Playfair_Display font-medium text-sm">About Us</a>
-                            </li>
-                            <li class="ml-8"><a href="" class="ff-Playfair_Display font-medium text-sm">Contact
-                                    Us</a></li>
-                            <li class="ml-8 lg:hidden"><a href="" class="ff-Playfair_Display font-medium text-sm">Sign
-                                    In</a>
-                            </li>
-                            <li class="ml-8 lg:hidden"><a href=""
-                                    class="ff-Playfair_Display font-medium text-sm btn-1 inline-block">SingUp</a>
-                            </li>
-                        </ul>
-                        <ul class="md:flex items-center sm-screen text-white">
-                            <li class="ml-8"><a href="" class="ff-Playfair_Display font-medium text-sm">Sign In</a>
-                            </li>
-                            <li class="ml-8"><a href=""
-                                    class="ff-Playfair_Display font-medium text-sm btn-1 inline-block">SingUp</a>
-                            </li>
-                        </ul>
+    <div class="overflow-hidden">
 
-                    </div>
-                </nav>
-                <div class="text-white mt-32">
-                    <p class="ff-Playfair_Display font-medium text-2xl">We’ve got your morning covered with</p>
-                    <h1 class="ff-Clicker_Script font-normal text-9xl md:text-[220px] my-10">
-                        Coffee
-                    </h1>
-                    <p class="ff-Playfair_Display font-medium text-xl max-w-lg">It is best to start your day with a
-                        cup of
-                        coffee.
-                        Discover
-                        the
-                        best flavours coffee you will ever have. We provide the best
-                        for our customers.</p>
-                    <p class="btn-1 inline-block mt-5 mb-24 cursor-pointer ff-Playfair_Display font-bold text-base">
-                        Order
-                        Now
-                    </p>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <section class="relative mb-20">
-        <div class="container mx-auto px-10">
-            <div class="md:flex items-center justify-between">
-                <div>
-                    <h2 class="text-[#603809] ff-Playfair_Display font-bold text-5xl mb-7">
-                        Discover the best coffee
-                    </h2>
-                    <p class="ff-Playfair_Display font-normal text-xl max-w-xl mb-7 text-[#707070]">
-                        Bean Scene is a coffee shop that provides you with quality coffee that helps boost your
-                        productivity
-                        and
-                        helps build
-                        your mood. Having a cup of coffee is good, but having a cup of real coffee is greater. There is
-                        no
-                        doubt
-                        that you will
-                        enjoy this coffee more than others you have ever tasted.
-                    </p>
-                    <p class="btn-1 inline-block ff-Playfair_Display font-bold text-base cursor-pointer">Learn More</p>
-                </div>
-                <div>
-                    <img src="./assests/images/png/section-2nd-image.png" alt="" class="w-full">
-                </div>
+        <div id="box" class="overflow-hidden">
+            <div class="preloader-box">
+                <img class="mx-auto w-1/5 coffe-image" src="/assests/images/png/6th-section-cup.png" alt="logo-image" />
             </div>
         </div>
 
-        <img src="./assests/images/png/coffee_blast-1.png" alt=""
-            class="-translate-y-[120px] w-1/3 absolute hidden xl:block">
+        <header class="bg-cover bg-no-repeat" style="background-image: url(/assests/images/png/bg-1-image.png)">
+            <div class="container mx-auto px-10">
+                <div class="relative">
+                    <nav class="pt-3 pb-5">
+                        <div class="flex items-center justify-between">
+                            <a href="" class=" ff-Clicker_Script font-normal text-[54px] text-white">Bean Scene</a>
+                            <label for="menuIcon" class="z-20">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </label>
+                            <input type="checkbox" id="menuIcon" hidden class="d-none">
+                            <ul class="flex items-center sm-screen mx-auto text-white">
+                                <li class="ml-8"><a href=""
+                                        class="ff-Playfair_Display font-medium text-sm hover-line">Home</a>
+                                </li>
+                                <li class="ml-8"><a href=""
+                                        class="ff-Playfair_Display font-medium text-sm hover-line">Menu</a>
+                                </li>
+                                <li class="ml-8"><a href=""
+                                        class="ff-Playfair_Display font-medium text-sm hover-line">About Us</a>
+                                </li>
+                                <li class="ml-8"><a href=""
+                                        class="ff-Playfair_Display font-medium text-sm hover-line">Contact
+                                        Us</a></li>
+                                <li class="ml-8 lg:hidden"><a href=""
+                                        class="ff-Playfair_Display font-medium text-sm hover-line">Sign
+                                        In</a>
+                                </li>
+                                <li class="ml-8 lg:hidden"><a href=""
+                                        class="ff-Playfair_Display font-medium text-sm btn-1 inline-block">SingUp</a>
+                                </li>
+                            </ul>
+                            <ul class="md:flex items-center sm-screen text-white">
+                                <li class="ml-8"><a href=""
+                                        class="ff-Playfair_Display font-medium text-sm hover-line">Sign In</a>
+                                </li>
+                                <li class="ml-8"><a href=""
+                                        class="ff-Playfair_Display font-medium text-sm btn-1 inline-block">SingUp</a>
+                                </li>
+                            </ul>
 
-    </section>
-
-    <section>
-        <div class="container mx-auto px-10 mb-24">
-            <p
-                class="text-[32px] text-center sm:text-[36px] md:text-[42px] lg:text-[48px] xl:text-[54px] text-[#603809] ff-Playfair_Display font-bold lg:pt-[20px] xl:pt-[20px]">
-                Enjoy a new blend
-                of coffee style</p>
-            <p
-                class="ff-Playfair_Display font-normal text-[15px] sm:text-[17px] md:text-[20px] text-[#707070] pt-[10px] leading-[28px] lg:leading-[34px] text-center pb-[32px]">
-                Explore all flavours of coffee with us. There is always a new cup worth experiencing</p>
-            <div class="flex flex-row flex-wrap pb-[53px] justify-center">
-                <div class=" xl:w-[25%] sm:px-[10px] md:w-[40%] w-[100%]  lg:w-[33.33%] cursor-pointer">
-                    <div
-                        class="border-solid relative border-2 border-[#F9C06A6B] hover:bg-[#FFEED8] transition-all delay-75 duration-500">
-                        <img class="w-full" src="./assests/images/png/section-3rd-1st-cup.png" alt="cofee_image">
-                        <h2 class="text-center ff-Playfair_Display font-bold text-[22px] text-[#603809] pt-[10px]">
-                            Cappuccino
-                        </h2>
-                        <h3 class="text-center text-base ff-Playfair_Display font-normal text-[#1E1E1E] py-[2px]">
+                        </div>
+                    </nav>
+                    <div class="text-white mt-32" data-aos="zoom-in-right" data-aos-delay="100" data-aos-duration="1000"
+                        data-aos-easing="linear">
+                        <p class="ff-Playfair_Display font-medium text-2xl">We’ve got your morning covered with</p>
+                        <h1 class="ff-Clicker_Script font-normal text-9xl md:text-[220px] my-10 text-coffee">
                             Coffee
-                            50% |
-                            Milk 50%</h3>
-                        <h4 class="text-center ff-Playfair_Display font-bold text-lg text-[#603809] pb-[42px]">$8.50
-                        </h4>
-                        <a class="ff-Playfair_Display absolute bottom-[-122px] left-[50%] translate-x-[-50%] font-bold text-base btn-1 inline-block mb-[95px]"
-                            href="">Order Now</a>
-                    </div>
-                </div>
-                <div
-                    class="xl:w-[25%] sm:px-[10px] md:w-[40%] mt-[30px] md:mt-0 w-[100%]  lg:w-[33.33%] cursor-pointer">
-                    <div
-                        class="border-solid relative border-2 border-[#F9C06A6B] hover:bg-[#FFEED8] transition-all delay-75 duration-500">
-                        <img class="w-full" src="./assests/images/png/section-3rd-2nd-cup.png" alt="cofee_image">
-                        <h2 class="text-center ff-Playfair_Display font-bold text-[22px] text-[#603809] pt-[10px]">
-                            Chai
-                            Latte
-                        </h2>
-                        <h3 class="text-center text-base ff-Playfair_Display font-normal text-[#1E1E1E] py-[2px]">
-                            Coffee
-                            50% |
-                            Milk 50%</h3>
-                        <h4 class="text-center ff-Playfair_Display font-bold text-lg text-[#603809] pb-[42px]">
-                            $8.50
-                        </h4>
-                        <a class="ff-Playfair_Display absolute bottom-[-122px] left-[50%] translate-x-[-50%] font-bold text-base btn-1 inline-block mb-[95px]"
-                            href="">Order Now</a>
-                    </div>
-                </div>
-                <div class="xl:w-[25%] sm:px-[10px] md:w-[40%] mt-[30px] lg:mt-0 w-[100%] lg:w-[33.33%] cursor-pointer">
-                    <div
-                        class="border-solid relative border-2 border-[#F9C06A6B] hover:bg-[#FFEED8] transition-all delay-75 duration-500">
-                        <img class="w-full" src="./assests/images/png/section-3rd-3rd-cup.png" alt="cofee_image">
-                        <h2 class="text-center ff-Playfair_Display font-bold text-[22px] text-[#603809] pt-[10px]">
-                            Macchiato
-                        </h2>
-                        <h3 class="text-center text-base ff-Playfair_Display font-normal text-[#1E1E1E] py-[2px]">
-                            Coffee
-                            50% |
-                            Milk 50%</h3>
-                        <h4 class="text-center ff-Playfair_Display font-bold text-lg text-[#603809] pb-[42px]">$8.50
-                        </h4>
-                        <a class="ff-Playfair_Display absolute bottom-[-122px] left-[50%] translate-x-[-50%] font-bold text-base btn-1 inline-block mb-[95px]"
-                            href="#">Order Now</a>
-                    </div>
-                </div>
-                <div
-                    class="xl:w-[25%] sm:px-[10px] md:w-[40%] mt-[30px] xl:mt-0 w-[100%]  lg:w-[33.33%] cursor-pointer">
-                    <div
-                        class="border-solid relative border-2 border-[#F9C06A6B] hover:bg-[#FFEED8] transition-all delay-75 duration-500">
-                        <img class="w-full" src="./assests/images/png/section-3rd-4th-cup.png" alt="cofee_image">
-                        <h2
-                            class="text-center ff-Playfair_Display font-bold text-[22px] not-italic text-[#603809] pt-[10px]">
-                            Expresso
-                        </h2>
-                        <h3
-                            class="text-center text-base ff-Playfair_Display font-normal not-italic text-[#1E1E1E] py-[2px]">
-                            Coffee
-                            50% |
-                            Milk 50%</h3>
-                        <h4
-                            class="text-center ff-Playfair_Display font-bold not-italic text-lg text-[#603809] pb-[42px]">
-                            $8.50
-                        </h4>
-                        <a class="ff-Playfair_Display absolute bottom-[-122px] left-[50%] translate-x-[-50%] font-bold text-base btn-1 inline-block mb-[95px]"
-                            href="#">Order Now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="relative">
-
-        <img src="./assests/images/png/coffee_blast-2.png" alt=""
-            class="w-1/4 absolute right-0 -translate-y-[145px] hidden xl:block cursor-pointer">
-
-        <div class="container mx-auto px-10 mb-12">
-            <h3
-                class="flex items-center justify-center ff-Playfair_Display font-bold text-5xl text-[#603809] text-center">
-                Why are
-                we different?
-            </h3>
-            <p
-                class="flex items-center justify-center ff-Playfair_Display font-normal text-xl text-[#707070] mt-4 mb-8 text-center">
-                We don’t just make your coffee, we make your day!</p>
-
-            <div class="flex flex-row flex-wrap pb-[53px] justify-center">
-                <div class="xl:w-[25%] sm:px-[10px] md:w-[40%] w-[100%] lg:w-[33.33%] cursor-pointer">
-                    <div
-                        class="border-2 border-[#FCE1B8] bg-[#FFF9F1] hover:bg-[#FFEED8] transition-all delay-75 duration-500">
-                        <img src="./assests/images/png/section-4th-1st-image.png" alt=""
-                            class="w-[35%] mx-auto mt-9 mb-6">
-                        <h4
-                            class="flex items-center justify-center ff-Playfair_Display font-bold text-2xl text-[#603809] mt-4 mb-2">
-                            Supreme Beans</h4>
-                        <p
-                            class="flex mx-auto text-center ff-Playfair_Display font-normal text-base mt-2 mb-9 max-w-[176px] text-[#707070]">
-                            Beans that provides
-                            great taste
-                        </p>
-                    </div>
-                </div>
-                <div
-                    class="xl:w-[25%] sm:px-[10px] md:w-[40%] mt-[20px] md:mt-0 w-[100%]  lg:w-[33.33%] cursor-pointer">
-                    <div
-                        class="border-2 border-[#FCE1B8] bg-[#FFF9F1] hover:bg-[#FFEED8] transition-all delay-75 duration-500">
-                        <img src="./assests/images/png/section-4th-2nd-image.png" alt=""
-                            class="w-[35%] mx-auto mt-9 mb-6">
-                        <h4
-                            class="flex items-center justify-center ff-Playfair_Display font-bold text-2xl text-[#603809] mt-4 mb-2">
-                            High Quality</h4>
-                        <p
-                            class="flex mx-auto text-center ff-Playfair_Display font-normal text-base mt-2 mb-9 max-w-[176px] text-[#707070]">
-                            We provide the
-                            highest quality
-                        </p>
-                    </div>
-                </div>
-                <div class="xl:w-[25%] sm:px-[10px] md:w-[40%] mt-[20px] lg:mt-0 w-[100%] lg:w-[33.33%] cursor-pointer">
-                    <div
-                        class="border-2 border-[#FCE1B8] bg-[#FFF9F1] hover:bg-[#FFEED8] transition-all delay-75 duration-500">
-                        <img src="./assests/images/png/section-4th-3rd-image.png" alt=""
-                            class="w-[35%] mx-auto mt-9 mb-6">
-                        <h4
-                            class="flex items-center justify-center ff-Playfair_Display font-bold text-2xl text-[#603809] mt-4 mb-2">
-                            Extraordinary</h4>
-                        <p
-                            class="flex mx-auto text-center ff-Playfair_Display font-normal text-base mt-2 mb-9 max-w-[176px] text-[#707070]">
-                            Coffee like you have
-                            never tasted
-                        </p>
-                    </div>
-                </div>
-                <div
-                    class="xl:w-[25%] sm:px-[10px] md:w-[40%] mt-[20px] xl:mt-0 w-[100%]  lg:w-[33.33%] cursor-pointer">
-                    <div
-                        class="border-2 border-[#FCE1B8] bg-[#FFF9F1] hover:bg-[#FFEED8] transition-all delay-75 duration-500">
-                        <img src="./assests/images/png/section-4th-4th-image.png" alt=""
-                            class="w-[35%] mx-auto mt-9 mb-6">
-                        <h4
-                            class="flex items-center justify-center ff-Playfair_Display font-bold text-2xl text-[#603809] mt-4 mb-2">
-                            Affordable Price</h4>
-                        <p
-                            class="flex mx-auto text-center ff-Playfair_Display font-normal text-base mt-2 mb-9 max-w-[176px] text-[#707070]">
-                            Our Coffee prices are
-                            easy to afford
+                        </h1>
+                        <p class="ff-Playfair_Display font-medium text-xl max-w-lg">It is best to start your day with a
+                            cup of
+                            coffee.
+                            Discover
+                            the
+                            best flavours coffee you will ever have. We provide the best
+                            for our customers.</p>
+                        <p class="btn-1 inline-block mt-5 mb-24 cursor-pointer ff-Playfair_Display font-bold text-base">
+                            Order
+                            Now
                         </p>
                     </div>
                 </div>
             </div>
+        </header>
 
-            <p class="flex items-center justify-center ff-Playfair_Display font-normal text-xl text-[#707070]
-                mt-4 mb-3 text-center">Great ideas start with great coffee, Lets help you achieve that</p>
-            <h4
-                class="flex items-center justify-center ff-Playfair_Display font-bold text-5xl text-[#603809] mb-6 text-center">
-                Get started today.
-            </h4>
-            <p class="items-center justify-center flex"><a href="" class="btn-1">Join Us</a>
-            </p>
-        </div>
-    </section>
-
-
-    <section class="bg-cover bg-no-repeat relative"
-        style="background-image: url(./assests/images/png/bg-section-6th.png);">
-        <img src="./assests/images/png/6th-section-overflow-beans.png" alt=""
-            class="absolute w-[33.9%] right-0 hidden lg:block">
-        <div class="container mx-auto px-10">
-            <div class="lg:flex justify-between">
-                <div class="pt-32">
-                    <h5 class="ff-Playfair_Display font-bold text-5xl max-w-xl text-white">
-                        Get a chance to have an
-                        Amazing morning
-                    </h5>
-                    <p class="ff-Playfair_Display font-normal text-xl text-white mt-6 mb-6 max-w-[409px]">We are giving
-                        you
-                        are
-                        one time
-                        opportunity
-                        to
-                        experience a better life with coffee.</p>
-                    <p><a href="" class="btn-1 inline-block">
-                            Order Now
-                        </a></p>
-                </div>
-                <div class="mt-16">
-                    <img src="./assests/images/png/6th-section-cup.png" alt=""
-                        class="relative justify-center flex items-center mx-auto">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="relative">
-        <img src="./assests/images/png/coffee_blast-3.png" alt=""
-            class="absolute right-0 z-10 top-24 w-1/4 hidden lg:block">
-        <img src="./assests/images/png/coffee_blast-4.png" alt="" class="absolute bottom-0 z-10 w-1/4 hidden lg:block">
-        <div class="container mx-auto px-10">
-            <h3 class="flex items-center justify-center ff-Playfair_Display font-bold text-5xl text-[#603809] mt-16">
-                Our
-                coffee perfection feedback
-            </h3>
-            <p
-                class="flex items-center justify-center ff-Playfair_Display font-normal text-xl text-[#707070] mt-4 mb-8">
-                Our customers has amazing things to say about us</p>
-            <div class="slick-slider flex">
-                <div class="element element-1 my-16">
-
-                    <div
-                        class="border-2 border-[#FCE1B8] bg-[#FFF9F1] hover:bg-[#FFEED8] transition-all delay-75 duration-500 px-10 lg:px-32 lg:mx-32">
-                        <p class="ff-Playfair_Display font-bold text-[220px] text-[#603809]">
-                            “
-                        </p>
-                        <p
-                            class="ff-Playfair_Display font-semibold text-lg max-w-[780px] text-center mx-auto -mt-36 text-[#707070] mb-7">
-                            Lorem
-                            Ipsum is
-                            simply
-                            dummy
-                            text of the
-                            printing
+        <section class="relative mb-20 mt-16">
+            <div class="container mx-auto px-10">
+                <div class="md:flex items-center justify-between">
+                    <div data-aos="fade-down-left" data-aos-delay="100" data-aos-duration="700"
+                        data-aos-easing="linear">
+                        <h2 class="text-[#603809] ff-Playfair_Display font-bold text-5xl mb-7">
+                            Discover the best coffee
+                        </h2>
+                        <p class="ff-Playfair_Display font-normal text-xl max-w-xl mb-7 text-[#707070]">
+                            Bean Scene is a coffee shop that provides you with quality coffee that helps boost your
+                            productivity
                             and
-                            typesetting
-                            industry. Lorem Ipsum has been the
-                            industry's standard
-                            dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                            scrambled it
-                            to
-                            make a type specimen
-                            book. It has survived not only five centuries, but also the leap into electronic
-                            typesetting,
-                            remaining essentially
-                            unchanged. It was popularised in the 1960s with the release of Letraset.....</p>
-                        <h6
-                            class="flex items-center justify-center ff-Playfair_Display font-bold text-3xl text-[#603809] mb-1">
-                            Albert
-                        </h6>
-                        <p
-                            class="flex items-center justify-center ff-Playfair_Display font-normal text-xl text-[#707070] sm:-mb-7">
-                            Project
-                            Manager</p>
-                        <img src="./assests/images/png/face-image.png" alt="" class="flex mx-auto translate-y-1/2">
+                            helps build
+                            your mood. Having a cup of coffee is good, but having a cup of real coffee is greater. There
+                            is
+                            no
+                            doubt
+                            that you will
+                            enjoy this coffee more than others you have ever tasted.
+                        </p>
+                        <p class="btn-1 inline-block ff-Playfair_Display font-bold text-base cursor-pointer">Learn More
+                        </p>
                     </div>
-
+                    <div data-aos="fade-down-right" data-aos-delay="100" data-aos-duration="700"
+                        data-aos-easing="linear">
+                        <img src="./assests/images/png/section-2nd-image.png" alt="" class="w-full">
+                    </div>
                 </div>
-                <div class="element element-2 my-16">
-                    <div>
+            </div>
+
+            <img src="./assests/images/png/coffee_blast-1.png" alt=""
+                class="-translate-y-[100px] w-1/3 absolute hidden xl:block">
+
+        </section>
+
+        <section>
+            <div class="container mx-auto px-10 mb-24">
+                <div data-aos="fade-down" data-aos-delay="100" data-aos-duration="700" data-aos-easing="linear">
+                    <p
+                        class="text-[32px] text-center sm:text-[36px] md:text-[42px] lg:text-[48px] xl:text-[54px] text-[#603809] ff-Playfair_Display font-bold lg:pt-[20px] xl:pt-[20px]">
+                        Enjoy a new blend
+                        of coffee style</p>
+                    <p
+                        class="ff-Playfair_Display font-normal text-[15px] sm:text-[17px] md:text-[20px] text-[#707070] pt-[10px] leading-[28px] lg:leading-[34px] text-center pb-[32px]">
+                        Explore all flavours of coffee with us. There is always a new cup worth experiencing</p>
+                </div>
+                <div class="flex flex-row flex-wrap pb-[53px] justify-center">
+                    <div class=" xl:w-[25%] sm:px-[10px] md:w-[40%] w-[100%]  lg:w-[33.33%] cursor-pointer"
+                        data-aos="fade-right" data-aos-delay="100" data-aos-duration="500" data-aos-easing="linear">
                         <div
-                            class="border-2 border-[#FCE1B8] bg-[#FFF9F1] hover:bg-[#FFEED8] transition-all px-10 lg:px-32 lg:mx-32">
+                            class="border-solid relative border-2 border-[#F9C06A6B] hover:bg-[#FFEED8] transition-all delay-75 duration-500">
+                            <img class="w-full" src="./assests/images/png/section-3rd-1st-cup.png" alt="cofee_image">
+                            <h2 class="text-center ff-Playfair_Display font-bold text-[22px] text-[#603809] pt-[10px]">
+                                Cappuccino
+                            </h2>
+                            <h3 class="text-center text-base ff-Playfair_Display font-normal text-[#1E1E1E] py-[2px]">
+                                Coffee
+                                50% |
+                                Milk 50%</h3>
+                            <h4 class="text-center ff-Playfair_Display font-bold text-lg text-[#603809] pb-[42px]">$8.50
+                            </h4>
+                            <a class="ff-Playfair_Display absolute bottom-[-122px] left-[50%] translate-x-[-50%] font-bold text-base btn-1 inline-block mb-[95px]"
+                                href="">Order Now</a>
+                        </div>
+                    </div>
+                    <div class="xl:w-[25%] sm:px-[10px] md:w-[40%] mt-[40px] md:mt-0 w-[100%]  lg:w-[33.33%] cursor-pointer"
+                        data-aos="fade-up" data-aos-delay="100" data-aos-duration="500" data-aos-easing="linear">
+                        <div
+                            class="border-solid relative border-2 border-[#F9C06A6B] hover:bg-[#FFEED8] transition-all delay-75 duration-500">
+                            <img class="w-full" src="./assests/images/png/section-3rd-2nd-cup.png" alt="cofee_image">
+                            <h2 class="text-center ff-Playfair_Display font-bold text-[22px] text-[#603809] pt-[10px]">
+                                Chai
+                                Latte
+                            </h2>
+                            <h3 class="text-center text-base ff-Playfair_Display font-normal text-[#1E1E1E] py-[2px]">
+                                Coffee
+                                50% |
+                                Milk 50%</h3>
+                            <h4 class="text-center ff-Playfair_Display font-bold text-lg text-[#603809] pb-[42px]">
+                                $8.50
+                            </h4>
+                            <a class="ff-Playfair_Display absolute bottom-[-122px] left-[50%] translate-x-[-50%] font-bold text-base btn-1 inline-block mb-[95px]"
+                                href="">Order Now</a>
+                        </div>
+                    </div>
+                    <div class="xl:w-[25%] sm:px-[10px] md:w-[40%] mt-[40px] lg:mt-0 w-[100%] lg:w-[33.33%] cursor-pointer"
+                        data-aos="fade-down" data-aos-delay="100" data-aos-duration="500" data-aos-easing="linear">
+                        <div
+                            class="border-solid relative border-2 border-[#F9C06A6B] hover:bg-[#FFEED8] transition-all delay-75 duration-500">
+                            <img class="w-full" src="./assests/images/png/section-3rd-3rd-cup.png" alt="cofee_image">
+                            <h2 class="text-center ff-Playfair_Display font-bold text-[22px] text-[#603809] pt-[10px]">
+                                Macchiato
+                            </h2>
+                            <h3 class="text-center text-base ff-Playfair_Display font-normal text-[#1E1E1E] py-[2px]">
+                                Coffee
+                                50% |
+                                Milk 50%</h3>
+                            <h4 class="text-center ff-Playfair_Display font-bold text-lg text-[#603809] pb-[42px]">$8.50
+                            </h4>
+                            <a class="ff-Playfair_Display absolute bottom-[-122px] left-[50%] translate-x-[-50%] font-bold text-base btn-1 inline-block mb-[95px]"
+                                href="#">Order Now</a>
+                        </div>
+                    </div>
+                    <div class="xl:w-[25%] sm:px-[10px] md:w-[40%] mt-[40px] xl:mt-0 w-[100%]  lg:w-[33.33%] cursor-pointer"
+                        data-aos="fade-left" data-aos-delay="100" data-aos-duration="500" data-aos-easing="linear">
+                        <div
+                            class="border-solid relative border-2 border-[#F9C06A6B] hover:bg-[#FFEED8] transition-all delay-75 duration-500">
+                            <img class="w-full" src="./assests/images/png/section-3rd-4th-cup.png" alt="cofee_image">
+                            <h2
+                                class="text-center ff-Playfair_Display font-bold text-[22px] not-italic text-[#603809] pt-[10px]">
+                                Expresso
+                            </h2>
+                            <h3
+                                class="text-center text-base ff-Playfair_Display font-normal not-italic text-[#1E1E1E] py-[2px]">
+                                Coffee
+                                50% |
+                                Milk 50%</h3>
+                            <h4
+                                class="text-center ff-Playfair_Display font-bold not-italic text-lg text-[#603809] pb-[42px]">
+                                $8.50
+                            </h4>
+                            <a class="ff-Playfair_Display absolute bottom-[-122px] left-[50%] translate-x-[-50%] font-bold text-base btn-1 inline-block mb-[95px]"
+                                href="#">Order Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative">
+
+            <img src="./assests/images/png/coffee_blast-2.png" alt=""
+                class="w-1/4 absolute right-0 -translate-y-[145px] hidden xl:block cursor-pointer">
+
+            <div class="container mx-auto px-10 mb-12">
+                <div data-aos="zoom-in-down" data-aos-delay="100" data-aos-duration="500" data-aos-easing="linear">
+                    <h3
+                        class="flex items-center justify-center ff-Playfair_Display font-bold text-5xl text-[#603809] text-center">
+                        Why are
+                        we different?
+                    </h3>
+                    <p
+                        class="flex items-center justify-center ff-Playfair_Display font-normal text-xl text-[#707070] mt-4 mb-8 text-center">
+                        We don’t just make your coffee, we make your day!</p>
+                </div>
+
+                <div class="flex flex-row flex-wrap pb-[53px] justify-center">
+                    <div class="xl:w-[25%] sm:px-[10px] md:w-[40%] w-[100%] lg:w-[33.33%] cursor-pointer"
+                        data-aos="fade-right" data-aos-delay="100" data-aos-duration="500" data-aos-easing="linear">
+                        <div
+                            class="border-2 border-[#FCE1B8] bg-[#FFF9F1] hover:bg-[#FFEED8] transition-all delay-75 duration-500">
+                            <img src="./assests/images/png/section-4th-1st-image.png" alt=""
+                                class="w-[35%] mx-auto mt-9 mb-6">
+                            <h4
+                                class="flex items-center justify-center ff-Playfair_Display font-bold text-2xl text-[#603809] mt-4 mb-2">
+                                Supreme Beans</h4>
+                            <p
+                                class="flex mx-auto text-center ff-Playfair_Display font-normal text-base mt-2 mb-9 max-w-[176px] text-[#707070]">
+                                Beans that provides
+                                great taste
+                            </p>
+                        </div>
+                    </div>
+                    <div class="xl:w-[25%] sm:px-[10px] md:w-[40%] mt-[20px] md:mt-0 w-[100%]  lg:w-[33.33%] cursor-pointer"
+                        data-aos="fade-down" data-aos-delay="100" data-aos-duration="500" data-aos-easing="linear">
+                        <div
+                            class="border-2 border-[#FCE1B8] bg-[#FFF9F1] hover:bg-[#FFEED8] transition-all delay-75 duration-500">
+                            <img src="./assests/images/png/section-4th-2nd-image.png" alt=""
+                                class="w-[35%] mx-auto mt-9 mb-6">
+                            <h4
+                                class="flex items-center justify-center ff-Playfair_Display font-bold text-2xl text-[#603809] mt-4 mb-2">
+                                High Quality</h4>
+                            <p
+                                class="flex mx-auto text-center ff-Playfair_Display font-normal text-base mt-2 mb-9 max-w-[176px] text-[#707070]">
+                                We provide the
+                                highest quality
+                            </p>
+                        </div>
+                    </div>
+                    <div class="xl:w-[25%] sm:px-[10px] md:w-[40%] mt-[20px] lg:mt-0 w-[100%] lg:w-[33.33%] cursor-pointer"
+                        data-aos="fade-up" data-aos-delay="100" data-aos-duration="500" data-aos-easing="linear">
+                        <div
+                            class="border-2 border-[#FCE1B8] bg-[#FFF9F1] hover:bg-[#FFEED8] transition-all delay-75 duration-500">
+                            <img src="./assests/images/png/section-4th-3rd-image.png" alt=""
+                                class="w-[35%] mx-auto mt-9 mb-6">
+                            <h4
+                                class="flex items-center justify-center ff-Playfair_Display font-bold text-2xl text-[#603809] mt-4 mb-2">
+                                Extraordinary</h4>
+                            <p
+                                class="flex mx-auto text-center ff-Playfair_Display font-normal text-base mt-2 mb-9 max-w-[176px] text-[#707070]">
+                                Coffee like you have
+                                never tasted
+                            </p>
+                        </div>
+                    </div>
+                    <div class="xl:w-[25%] sm:px-[10px] md:w-[40%] mt-[20px] xl:mt-0 w-[100%]  lg:w-[33.33%] cursor-pointer"
+                        data-aos="fade-left" data-aos-delay="100" data-aos-duration="500" data-aos-easing="linear">
+                        <div
+                            class="border-2 border-[#FCE1B8] bg-[#FFF9F1] hover:bg-[#FFEED8] transition-all delay-75 duration-500">
+                            <img src="./assests/images/png/section-4th-4th-image.png" alt=""
+                                class="w-[35%] mx-auto mt-9 mb-6">
+                            <h4
+                                class="flex items-center justify-center ff-Playfair_Display font-bold text-2xl text-[#603809] mt-4 mb-2">
+                                Affordable Price</h4>
+                            <p
+                                class="flex mx-auto text-center ff-Playfair_Display font-normal text-base mt-2 mb-9 max-w-[176px] text-[#707070]">
+                                Our Coffee prices are
+                                easy to afford
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="flex items-center justify-center ff-Playfair_Display font-normal text-xl text-[#707070]
+                    mt-4 mb-3 text-center" data-aos="zoom-in-up" data-aos-delay="100" data-aos-duration="500"
+                    data-aos-easing="linear">Great ideas
+                    start with great coffee, Lets help you achieve
+                    that</p>
+                <h4 class="flex items-center justify-center ff-Playfair_Display font-bold text-5xl text-[#603809] mb-6 text-center"
+                    data-aos="zoom-in-up" data-aos-delay="100" data-aos-duration="500" data-aos-easing="linear">
+                    Get started today.
+                </h4>
+                <p class="items-center justify-center flex ff-Playfair_Display font-bold text-base"
+                    data-aos="zoom-in-up" data-aos-delay="100" data-aos-duration="500" data-aos-easing="linear"><a
+                        href="" class="btn-1">Join
+                        Us</a>
+                </p>
+            </div>
+        </section>
+
+        <section class="bg-cover bg-no-repeat relative"
+            style="background-image: url(./assests/images/png/bg-section-6th.png);">
+            <img src="./assests/images/png/6th-section-overflow-beans.png" alt=""
+                class="absolute w-[33.9%] right-0 hidden lg:block 3xl:hidden">
+            <div class="container mx-auto px-10">
+                <div class="lg:flex justify-between">
+                    <div class="pt-32">
+                        <h5 class="ff-Playfair_Display font-bold text-5xl max-w-xl text-white" data-aos="zoom-in-right"
+                            data-aos-delay="100" data-aos-duration="500" data-aos-easing="linear">
+                            Get a chance to have an
+                            Amazing morning
+                        </h5>
+                        <p class="ff-Playfair_Display font-normal text-xl text-white mt-6 mb-6 max-w-[409px]"
+                            data-aos="zoom-in-right" data-aos-delay="100" data-aos-duration="500"
+                            data-aos-easing="linear">
+                            We are giving
+                            you
+                            are
+                            one time
+                            opportunity
+                            to
+                            experience a better life with coffee.</p>
+                        <p><a href="" class="btn-1 inline-block ff-Playfair_Display font-bold text-base"
+                                data-aos="zoom-in-right" data-aos-delay="100" data-aos-duration="500"
+                                data-aos-easing="linear">
+                                Order Now
+                            </a></p>
+                    </div>
+                    <div class="mt-16" data-aos="zoom-in-left" data-aos-delay="100" data-aos-duration="500"
+                        data-aos-easing="linear">
+                        <img src="./assests/images/png/6th-section-cup.png" alt=""
+                            class="relative justify-center flex items-center mx-auto">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative overflow-hidden">
+            <img src="./assests/images/png/coffee_blast-3.png" alt=""
+                class="absolute right-0 z-10 top-40 w-1/4 hidden lg:block">
+            <img src="./assests/images/png/coffee_blast-4.png" alt=""
+                class="absolute bottom-0 z-10 w-1/4 hidden lg:block">
+            <div class="container mx-auto px-10" data-aos="zoom-out" data-aos-delay="100" data-aos-duration="500"
+                data-aos-easing="linear">
+                <h3
+                    class="flex items-center justify-center ff-Playfair_Display font-bold text-5xl text-[#603809] mt-16">
+                    Our
+                    coffee perfection feedback
+                </h3>
+                <p
+                    class="flex items-center justify-center ff-Playfair_Display font-normal text-xl text-[#707070] mt-4 mb-8">
+                    Our customers has amazing things to say about us</p>
+                <div class="slick-slider flex">
+                    <div class="element element-1 my-16">
+
+                        <div
+                            class="border-2 border-[#FCE1B8] bg-[#FFF9F1] hover:bg-[#FFEED8] transition-all delay-75 duration-500 px-10 lg:px-32 lg:mx-32">
                             <p class="ff-Playfair_Display font-bold text-[220px] text-[#603809]">
                                 “
                             </p>
@@ -497,115 +691,192 @@
                                 unchanged. It was popularised in the 1960s with the release of Letraset.....</p>
                             <h6
                                 class="flex items-center justify-center ff-Playfair_Display font-bold text-3xl text-[#603809] mb-1">
-                                Jonny Thomas
+                                Albert
                             </h6>
                             <p
-                                class="flex items-center justify-center ff-Playfair_Display font-normal text-xl text-[#707070] -mb-7">
+                                class="flex items-center justify-center ff-Playfair_Display font-normal text-xl text-[#707070] sm:-mb-7">
                                 Project
                                 Manager</p>
                             <img src="./assests/images/png/face-image.png" alt="" class="flex mx-auto translate-y-1/2">
                         </div>
+
+                    </div>
+                    <div class="element element-2 my-16">
+                        <div>
+                            <div
+                                class="border-2 border-[#FCE1B8] bg-[#FFF9F1] hover:bg-[#FFEED8] transition-all px-10 lg:px-32 lg:mx-32">
+                                <p class="ff-Playfair_Display font-bold text-[220px] text-[#603809]">
+                                    “
+                                </p>
+                                <p
+                                    class="ff-Playfair_Display font-semibold text-lg max-w-[780px] text-center mx-auto -mt-36 text-[#707070] mb-7">
+                                    Lorem
+                                    Ipsum is
+                                    simply
+                                    dummy
+                                    text of the
+                                    printing
+                                    and
+                                    typesetting
+                                    industry. Lorem Ipsum has been the
+                                    industry's standard
+                                    dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                                    scrambled it
+                                    to
+                                    make a type specimen
+                                    book. It has survived not only five centuries, but also the leap into electronic
+                                    typesetting,
+                                    remaining essentially
+                                    unchanged. It was popularised in the 1960s with the release of Letraset.....</p>
+                                <h6
+                                    class="flex items-center justify-center ff-Playfair_Display font-bold text-3xl text-[#603809] mb-1">
+                                    Jonny Thomas
+                                </h6>
+                                <p
+                                    class="flex items-center justify-center ff-Playfair_Display font-normal text-xl text-[#707070] -mb-7">
+                                    Project
+                                    Manager</p>
+                                <img src="./assests/images/png/face-image.png" alt=""
+                                    class="flex mx-auto translate-y-1/2">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="bg-cover bg-no-repeat relative" style="background-image: url(/assests/images/png/footer-bg-1.png);">
-        <img src="./assests/images/png/footer-cup-1.png" alt="" class="absolute -bottom-32 left-0 hidden lg:block">
-        <img src="./assests/images/png/footer-cup-2.png" alt="" class="absolute -bottom-32 right-0 hidden lg:block">
-        <div class="container mx-auto px-10 md:px-20">
-            <h6 class="ff-Playfair_Display font-bold text-5xl text-white flex items-center justify-center pt-20 mt-20">
-                Subscribe to
-                get the Latest News
-            </h6>
-            <p class="ff-Playfair_Display font-normal text-xl text-white flex items-center justify-center mt-4 mb-7">
-                Don’t
-                miss
-                out on our latest news, updates, tips and special offers</p>
+        <section class="bg-cover bg-no-repeat relative"
+            style="background-image: url(/assests/images/png/footer-bg-1.png);">
+            <img src="./assests/images/png/footer-cup-1.png" alt="" class="absolute -bottom-32 left-0 hidden lg:block"
+                data-aos="zoom-in-right" data-aos-delay="100" data-aos-duration="600" data-aos-easing="linear">
+            <img src="./assests/images/png/footer-cup-2.png" alt="" class="absolute -bottom-32 right-0 hidden lg:block"
+                data-aos="zoom-in-left" data-aos-delay="100" data-aos-duration="600" data-aos-easing="linear">
+            <div class="container mx-auto px-10 md:px-20" data-aos="zoom-out-down" data-aos-delay="100"
+                data-aos-easing="linear" data-aos-duration="500">
+                <h6 class=" ff-Playfair_Display font-bold text-5xl text-white flex items-center justify-center pt-20
+                mt-20">
+                    Subscribe to
+                    get the Latest News
+                </h6>
+                <p
+                    class="ff-Playfair_Display font-normal text-xl text-white flex items-center justify-center mt-4 mb-7">
+                    Don’t
+                    miss
+                    out on our latest news, updates, tips and special offers</p>
 
-            <div class="flex items-center justify-center pb-20">
-                <input type="text" placeholder="Enter your mail"
-                    class="h-14 w-1/3 pl-6 ff-Playfair_Display font-normal text-xl rounded-l-md text-[#A8A49F]">
-                <button
-                    class="bg-[#F9C06A] p-[14px] -ml-7 ff-Playfair_Display font-bold text-xl rounded-r-md text-[#603809]"><a
-                        href="">Suscribe</a></button>
+                <div class="flex items-center justify-center pb-20">
+                    <input type="text" placeholder="Enter your mail"
+                        class="h-14 w-1/3 pl-6 ff-Playfair_Display font-normal text-xl rounded-l-md text-[#A8A49F]">
+                    <button
+                        class="bg-[#F9C06A] p-[14px] -ml-7 ff-Playfair_Display font-bold text-xl rounded-r-md text-[#603809]"><a
+                            href="">Suscribe</a></button>
+                </div>
+
             </div>
 
-        </div>
+        </section>
 
-    </section>
-
-    <footer>
-        <div class="bg-cover bg-no-repeat" style="background-image: url(/assests/images/png/footer-bg-2.png);">
-            <div class="container mx-auto px-10 md:px-20">
-                <div class="xl:flex gap-64">
-                    <div>
-                        <h4 class="ff-Clicker_Script font-normal text-[54px] text-white pt-20 lg:pt-36">
-                            <a href="">
-                                Bean Scene
-                            </a>
-                        </h4>
-                        <p class="max-w-sm ff-Playfair_Display font-normal text-sm text-white my-5">Lorem Ipsum is
-                            simply dummy
-                            text
-                            of the
-                            printing and
-                            typesetting industry.
-                            Lorem
-                            Ipsum has been the
-                            industry's standard
-                            dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
-                            it to
-                            make a type specimen
-                            book.</p>
-                        <div class="flex gap-5 pb-0 xl:pb-28 mt-8">
-                            <a href=""><img src="./assests/images/svg/footer-icon-1.svg" alt=""></a>
-                            <a href=""><img src="./assests/images/svg/footer-icon-2.svg" alt=""></a>
-                            <a href=""><img src="./assests/images/svg/footer-icon-3.svg" alt=""></a>
-                            <a href=""><img src="./assests/images/svg/footer-icon-4.svg" alt=""></a>
+        <footer class="-mt-1">
+            <div class="bg-cover bg-no-repeat" style="background-image: url(/assests/images/png/footer-bg-2.png);">
+                <div class="container mx-auto px-10 md:px-20">
+                    <div class="xl:flex gap-64">
+                        <div data-aos="fade-right" data-aos-delay="100" data-aos-duration="600"
+                            data-aos-easing="ease-in-sine" data-aos-easing="linear">
+                            <h4 class="ff-Clicker_Script font-normal text-[54px] text-white pt-20 lg:pt-36">
+                                <a href="">
+                                    Bean Scene
+                                </a>
+                            </h4>
+                            <p class="max-w-sm ff-Playfair_Display font-normal text-sm text-white my-5">Lorem Ipsum is
+                                simply dummy
+                                text
+                                of the
+                                printing and
+                                typesetting industry.
+                                Lorem
+                                Ipsum has been the
+                                industry's standard
+                                dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                                scrambled
+                                it to
+                                make a type specimen
+                                book.</p>
+                            <div class="flex gap-5 pb-0 xl:pb-28 mt-8">
+                                <a href="" class="hover:-translate-y-[5px] transition-all duration-300"><img
+                                        src="./assests/images/svg/footer-icon-1.svg" alt=""></a>
+                                <a href="" class="hover:-translate-y-[5px] transition-all duration-300"><img
+                                        src="./assests/images/svg/footer-icon-2.svg" alt=""></a>
+                                <a href="" class="hover:-translate-y-[5px] transition-all duration-300"><img
+                                        src="./assests/images/svg/footer-icon-3.svg" alt=""></a>
+                                <a href="" class="hover:-translate-y-[5px] transition-all duration-300"><img
+                                        src="./assests/images/svg/footer-icon-4.svg" alt=""></a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex gap-16 pt-20 lg:pt-40 flex-col md:flex-row">
-                        <div class="flex gap-16">
-                            <ul class="text-white">
-                                <li class="ff-Playfair_Display font-bold text-[24px] mb-12">About</li>
-                                <li class="ff-Playfair_Display font-normal text-lg">Menu</li>
-                                <li class="ff-Playfair_Display font-normal text-lg my-[27px]">Features</li>
-                                <li class="ff-Playfair_Display font-normal text-lg">News & Blogs</li>
-                                <li class="ff-Playfair_Display font-normal text-lg mt-[27px]">Help & Supports
+                        <div class="flex gap-16 pt-20 lg:pt-40 flex-col md:flex-row" data-aos="fade-left"
+                            data-aos-delay="100" data-aos-duration="600" data-aos-easing="ease-in-sine"
+                            data-aos-easing="linear">
+                            <div class="flex gap-16">
+                                <ul class="text-white">
+                                    <li class="ff-Playfair_Display font-bold text-[24px] mb-12">
+                                        About
+                                    </li>
+                                    <li class="ff-Playfair_Display font-normal text-lg">
+                                        <a href="" class="hover-line">Menu</a>
+                                    </li>
+                                    <li class="ff-Playfair_Display font-normal text-lg my-[27px]"><a href=""
+                                            class="hover-line">Features</a>
+                                    </li>
+                                    <li class="ff-Playfair_Display font-normal text-lg"><a href=""
+                                            class="hover-line">News &
+                                            Blogs</a></li>
+                                    <li class="ff-Playfair_Display font-normal text-lg mt-[27px]"><a href=""
+                                            class="hover-line">Help &
+                                            Supports</a>
+                                    </li>
+                                </ul>
+                                <ul class="text-white">
+                                    <li class="ff-Playfair_Display font-bold text-[24px] mb-12">Company</li>
+                                    <li class="ff-Playfair_Display font-normal text-lg"><a href=""
+                                            class="hover-line">How we work</a></li>
+                                    <li class="ff-Playfair_Display font-normal text-lg my-[27px]"><a href=""
+                                            class="hover-line">Terms of
+                                            service</a>
+                                    </li>
+                                    <li class="ff-Playfair_Display font-normal text-lg"><a href=""
+                                            class="hover-line">Pricing</a></li>
+                                    <li class="ff-Playfair_Display font-normal text-lg mt-[27px]"><a href=""
+                                            class="hover-line">FAQ</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <ul class="text-white mb-20 md:mb-10">
+                                <li class="ff-Playfair_Display font-bold text-[24px] mb-9">Contact Us</li>
+                                <li class="ff-Playfair_Display font-normal text-lg max-w-xs"><a href=""
+                                        class="hover-line">Akshya
+                                        Nagar
+                                        1st
+                                        Block 1st
+                                        Cross,
+                                        Rammurthy nagar,
+                                        Bangalore-560016</a></li>
+                                <li class="ff-Playfair_Display font-normal text-lg my-[22px]"><a href=""
+                                        class="hover-line">+1
+                                        202-918-2132</a></li>
+                                <li class="ff-Playfair_Display font-normal text-lg mb-[22px]"><a href=""
+                                        class="hover-line">beanscene@mail.com</a>
+                                </li>
+                                <li class="ff-Playfair_Display font-normal text-lg"><a href=""
+                                        class="hover-line">beanscene@mail.com</a>
                                 </li>
                             </ul>
-                            <ul class="text-white">
-                                <li class="ff-Playfair_Display font-bold text-[24px] mb-12">Company</li>
-                                <li class="ff-Playfair_Display font-normal text-lg">How we work</li>
-                                <li class="ff-Playfair_Display font-normal text-lg my-[27px]">Terms of service
-                                </li>
-                                <li class="ff-Playfair_Display font-normal text-lg">Pricing</li>
-                                <li class="ff-Playfair_Display font-normal text-lg mt-[27px]">FAQ</li>
-                            </ul>
                         </div>
-                        <ul class="text-white mb-20 md:mb-10">
-                            <li class="ff-Playfair_Display font-bold text-[24px] mb-9">Contact Us</li>
-                            <li class="ff-Playfair_Display font-normal text-lg max-w-xs">Akshya
-                                Nagar
-                                1st
-                                Block 1st
-                                Cross,
-                                Rammurthy nagar,
-                                Bangalore-560016</li>
-                            <li class="ff-Playfair_Display font-normal text-lg my-[22px]"><a href="">+1
-                                    202-918-2132</a></li>
-                            <li class="ff-Playfair_Display font-normal text-lg mb-[22px]"><a
-                                    href="">beanscene@mail.com</a>
-                            </li>
-                            <li class="ff-Playfair_Display font-normal text-lg"><a href="">beanscene@mail.com</a></li>
-                        </ul>
                     </div>
                 </div>
             </div>
-        </div>
-    </footer>
+        </footer>
+        <a id="button">
+        </a>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
         integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
@@ -614,6 +885,12 @@
         integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="./assests/js/app.js"></script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+        once: true;
+    </script>
 </body>
 
 </html>
